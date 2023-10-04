@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zion1.Membership.Domain", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zion1.Membership.Infrastructure", "Zion1.Membership.Infrastructure\Zion1.Membership.Infrastructure.csproj", "{941C47DE-30DA-4CE9-9D9D-5CED810790E1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zion1.Membership.Mobile.UI", "Zion1.Membership.Mobile.UI\Zion1.Membership.Mobile.UI.csproj", "{760C0C19-8DC4-4D2A-95D6-ACEEC5C60857}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zion1.Membership.Web.UI", "Zion1.Membership.Web.UI\Zion1.Membership.Web.UI.csproj", "{157BB401-01B6-4118-8931-186709AAAB05}"
 EndProject
 Global
@@ -37,10 +35,6 @@ Global
 		{941C47DE-30DA-4CE9-9D9D-5CED810790E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{941C47DE-30DA-4CE9-9D9D-5CED810790E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{941C47DE-30DA-4CE9-9D9D-5CED810790E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{760C0C19-8DC4-4D2A-95D6-ACEEC5C60857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{760C0C19-8DC4-4D2A-95D6-ACEEC5C60857}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{760C0C19-8DC4-4D2A-95D6-ACEEC5C60857}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{760C0C19-8DC4-4D2A-95D6-ACEEC5C60857}.Release|Any CPU.Build.0 = Release|Any CPU
 		{157BB401-01B6-4118-8931-186709AAAB05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{157BB401-01B6-4118-8931-186709AAAB05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{157BB401-01B6-4118-8931-186709AAAB05}.Release|Any CPU.ActiveCfg = Release|Any CPU
