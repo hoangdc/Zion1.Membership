@@ -1,0 +1,33 @@
+{
+  //"BaseUrl": "https://hoangdinh.homeip.net/zion1.client.api/",
+  "BaseUrl": "https://localhost:7141/",
+  "ApiResources": [
+    {
+      "Name": "GetMemberList",
+      "Resource": "api/membership",
+      "Method": "Get",
+      "CacheTime": 10
+    },
+    {
+      "Name": "GetMember",
+      "Resource": "api/membership/{id}",
+      "Method": "Get",
+      "CacheTime": 10
+    },
+    {
+      "Name": "CreateMember",
+      "Resource": "api/membership",
+      "Method": "Post"
+    },
+    {
+      "Name": "UpdateMember",
+      "Resource": "api/membership",
+      "Method": "Put"
+    },
+    {
+      "Name": "DeleteMember",
+      "Resource": "api/membership/{id}",
+      "Method": "Delete"
+    }
+  ]
+}

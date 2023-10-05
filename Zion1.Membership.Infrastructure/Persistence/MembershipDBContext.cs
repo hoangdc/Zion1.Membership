@@ -9,7 +9,7 @@ namespace Zion1.Membership.Infrastructure.Persistence
         {
         }
 
-        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<Member> Members { get; set; }
     }
 
 
