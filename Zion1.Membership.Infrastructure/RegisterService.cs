@@ -5,9 +5,9 @@ using Zion1.Membership.Application.Contracts;
 using Zion1.Membership.Infrastructure.Persistence;
 using Zion1.Membership.Infrastructure.Persistence.Repositories;
 using Zion1.Membership.Application.Queries;
-using Zion1.Membership.Application.Commands.CreateUserProfile;
-using Zion1.Membership.Application.Commands.UpdateUserProfile;
-using Zion1.Membership.Application.Commands.DeleteUserProfile;
+using Zion1.Membership.Application.Commands.CreateMember;
+using Zion1.Membership.Application.Commands.UpdateMember;
+using Zion1.Membership.Application.Commands.DeleteMember;
 
 namespace Zion1.Membership.Infrastructure
 {
@@ -17,13 +17,13 @@ namespace Zion1.Membership.Infrastructure
         {
             services.AddDbContext<MembershipDBContext>(options => options.UseSqlServer(configuration.GetConnectionString("Zion1.Membership"), b => b.MigrationsAssembly(typeof(MembershipDBContext).Assembly.FullName)), ServiceLifetime.Transient);
 
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetUserProfileListQuery).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateUserProfileRequestHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(UpdateUserProfileRequestHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DeleteUserProfileRequestHandler).Assembly));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetMemberListQuery).Assembly));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateMemberRequestHandler).Assembly));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(UpdateMemberRequestHandler).Assembly));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DeleteMemberRequestHandler).Assembly));
 
-            services.AddScoped<IUserProfileCommandRepository, UserProfileCommandRepository>();
-            services.AddScoped<IUserProfileQueryRepository, UserProfileQueryRepositoty>();
+            services.AddScoped<IMemberCommandRepository, MemberCommandRepository>();
+            services.AddScoped<IMemberQueryRepository, MemberQueryRepositoty>();
 
 
             return services;

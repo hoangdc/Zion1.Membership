@@ -1,21 +1,21 @@
 ﻿using AutoMapper;
-using Zion1.Membership.Application.Commands.CreateUserProfile;
-using Zion1.Membership.Application.Commands.UpdateUserProfile;
-using Zion1.Membership.Domain.Entities;
 using Zion1.Common.Application.Mapper;
+using Zion1.Membership.Application.Commands.CreateMember;
+using Zion1.Membership.Application.Commands.UpdateMember;
+using Zion1.Membership.Domain.Entities;
 
 namespace Zion1.Membership.Application.Mapper
 {
-    public class MemberhispMappingProfile : Profile
+    public class MembershipMappingProfile : Profile
     {
-        public MemberhispMappingProfile()
+        public MembershipMappingProfile()
         {
-            CreateMap<UserProfile, CreateUserProfileRequest>().ReverseMap();
-            CreateMap<UserProfile, UpdateUserProfileRequest>().ReverseMap();
+            CreateMap<Member, CreateMemberRequest>().ReverseMap();
+            CreateMap<Member, UpdateMemberRequest>().ReverseMap();
         }
     }
 
-    public class MembershipMapper : CommonMapper<MemberhispMappingProfile>
+    public class MembershipMapper : CommonMapper<MembershipMappingProfile>
     {
 
     }

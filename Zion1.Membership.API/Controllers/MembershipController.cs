@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Zion1.Membership.Application.Queries;
 using Zion1.Common.API.Controller;
-using Zion1.Membership.Application.Commands.CreateUserProfile;
-using Zion1.Membership.Application.Commands.DeleteUserProfile;
-using Zion1.Membership.Application.Commands.UpdateUserProfile;
+using Zion1.Membership.Application.Commands.CreateMember;
+using Zion1.Membership.Application.Commands.DeleteMember;
+using Zion1.Membership.Application.Commands.UpdateMember;
 using Zion1.Membership.Application.Queries;
 using Zion1.Membership.Domain.Entities;
 
@@ -15,41 +16,47 @@ namespace Zion1.Membership.API.Controller
     [ApiController]
     public class MembershipController : CoreController
     {
-        [HttpGet(Name = "GetUserProfileList")]
-        public async Task<IReadOnlyList<UserProfile>> GetUserProfileList()
+        [HttpGet]
+        public async Task<IReadOnlyList<Member>> GetMemberList()
         {
-            return await Mediator.Send(new GetUserProfileListQuery());
+            return await Mediator.Send(new GetMemberListQuery());
         }
 
-        [HttpPost(Name = "CreateUserProfile")]
-        public async Task<ActionResult<int>> CreateUserProfile(CreateUserProfileRequest userProfile)
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<Member> GetMember(int id)
         {
-            var validator = new CreateUserProfileValidator();
-            var result = validator.Validate(userProfile);
+            return await Mediator.Send(new GetMemberQuery(id));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<int>> CreateMember(CreateMemberRequest member)
+        {
+            var validator = new CreateMemberValidator();
+            var result = validator.Validate(member);
 
             if (result.IsValid)
             {
-                return await Mediator.Send(userProfile);
+                return await Mediator.Send(member);
             }
             var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
             return BadRequest(errorMessages);
         }
 
-        [HttpPut("{id}")]
-        public async Task<int> UpdateUserProfile(int id, UpdateUserProfileRequest userProfile)
+        [HttpPut]
+        public async Task<int> UpdateMember(UpdateMemberRequest member)
         {
-            if (id != userProfile.Id)
-            {
-                return 0;
-            }
-
-            return await Mediator.Send(userProfile);
+            var hasMember = GetMember(member.Id);
+            if (hasMember != null)
+                return await Mediator.Send(member);
+            return 0;
         }
 
-        [HttpDelete("{UserId}")]
-        public async Task<int> DeleteUserProfile(int id)
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<int> DeleteMember(int id)
         {
-            return await Mediator.Send(new DeleteUserProfileRequest(id));
+            return await Mediator.Send(new DeleteMemberRequest(id));
         }
     }
 }
