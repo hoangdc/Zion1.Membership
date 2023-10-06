@@ -5,7 +5,6 @@ namespace Zion1.Membership.Application.Commands.UpdateMember
     public class UpdateMemberRequest : IRequest<int>
     {
         public int Id { get; set; }
-        public string Zion1 { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string MiddleName { get; set; } = string.Empty;

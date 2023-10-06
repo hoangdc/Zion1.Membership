@@ -6,6 +6,8 @@ using Zion1.Membership.Application.Commands.DeleteMember;
 using Zion1.Membership.Application.Commands.UpdateMember;
 using Zion1.Membership.Application.Queries;
 using Zion1.Membership.Domain.Entities;
+using System.Threading.Tasks.Dataflow;
+using System.Text.RegularExpressions;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,7 +16,7 @@ namespace Zion1.Membership.API.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MembershipController : CoreController
+    public class MemberController : CoreController
     {
         [HttpGet]
         public async Task<IReadOnlyList<Member>> GetMemberList()
@@ -27,6 +29,13 @@ namespace Zion1.Membership.API.Controller
         public async Task<Member> GetMember(int id)
         {
             return await Mediator.Send(new GetMemberQuery(id));
+        }
+
+        [HttpGet]
+        [Route("/group/{groupId}")]
+        public async Task<IReadOnlyList<Member>> GetMemberListByGroup(int groupId)
+        {
+            return await Mediator.Send(new GetMemberInGroupQuery(groupId));
         }
 
         [HttpPost]

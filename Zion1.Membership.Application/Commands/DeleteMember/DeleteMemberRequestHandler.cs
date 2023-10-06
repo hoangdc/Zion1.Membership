@@ -8,20 +8,20 @@ namespace Zion1.Membership.Application.Commands.DeleteMember
     public class DeleteMemberRequestHandler : IRequestHandler<DeleteMemberRequest, int>
     {
         private readonly IMemberCommandRepository _memberCommandRepository;
-        public DeleteMemberRequestHandler(IMemberCommandRepository clientRepository)
+        public DeleteMemberRequestHandler(IMemberCommandRepository memberRepository)
         {
-            _memberCommandRepository = clientRepository;
+            _memberCommandRepository = memberRepository;
         }
 
         public async Task<int> Handle(DeleteMemberRequest request, CancellationToken cancellationToken)
         {
-            var clientInfo = await _memberCommandRepository.GetByIdAsync(request.Id);
-            if (clientInfo is null)
+            var member = await _memberCommandRepository.GetByIdAsync(request.Id);
+            if (member is null)
             {
                 throw new ApplicationException("Issue with mapper");
             }
-            var newClientInfo = await _memberCommandRepository.DeleteAsync(clientInfo);
-            return newClientInfo.Id;
+            await _memberCommandRepository.DeleteAsync(member);
+            return member.Id;
         }
     }
 }

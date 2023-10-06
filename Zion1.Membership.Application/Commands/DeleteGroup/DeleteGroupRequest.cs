@@ -3,20 +3,20 @@ using Zion1.Membership.Application.Contracts;
 using Zion1.Membership.Application.Mapper;
 using Zion1.Membership.Domain.Entities;
 
-namespace Zion1.Membership.Application.Commands.DeleteMember
+namespace Zion1.Membership.Application.Commands.DeleteGroup
 {
-    public class DeleteMemberRequest : IRequest<int>
+    public class DeleteGroupRequest : IRequest<int>
     {
         public int Id { get; set; } = 0;
 
-        public DeleteMemberRequest()
+        public DeleteGroupRequest()
         {
 
         }
 
-        public DeleteMemberRequest(int memberId)
+        public DeleteGroupRequest(int groupId)
         {
-            Id = memberId;
+            Id = groupId;
         }
     }
 }

@@ -8,20 +8,20 @@ namespace Zion1.Membership.Application.Commands.UpdateMember
     public class UpdateMemberRequestHandler : IRequestHandler<UpdateMemberRequest, int>
     {
         private readonly IMemberCommandRepository _memberCommandRepository;
-        public UpdateMemberRequestHandler(IMemberCommandRepository clientRepository)
+        public UpdateMemberRequestHandler(IMemberCommandRepository memberRepository)
         {
-            _memberCommandRepository = clientRepository;
+            _memberCommandRepository = memberRepository;
         }
 
         public async Task<int> Handle(UpdateMemberRequest request, CancellationToken cancellationToken)
         {
-            var clientInfo = MembershipMapper.Mapper.Map<Member>(request);
-            if (clientInfo is null)
+            var member = MembershipMapper.Mapper.Map<Member>(request);
+            if (member is null)
             {
                 throw new ApplicationException("Issue with mapper");
             }
-            var newClientInfo = await _memberCommandRepository.UpdateAsync(clientInfo);
-            return newClientInfo.Id;
+            await _memberCommandRepository.UpdateAsync(member);
+            return member.Id;
         }
     }
 }

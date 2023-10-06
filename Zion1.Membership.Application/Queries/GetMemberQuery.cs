@@ -13,10 +13,10 @@ namespace Zion1.Membership.Application.Queries
             MemberId = memberId;
         }
 
-        public class GetClientListQueryHandler : IRequestHandler<GetMemberQuery, Member>
+        public class GetMemberListQueryHandler : IRequestHandler<GetMemberQuery, Member>
         {
             private readonly IMemberQueryRepository _memberRepository;
-            public GetClientListQueryHandler(IMemberQueryRepository clientRepository)
+            public GetMemberListQueryHandler(IMemberQueryRepository clientRepository)
             {
                 _memberRepository = clientRepository;
             }
