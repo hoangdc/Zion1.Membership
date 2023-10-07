@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Zion1.Membership.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using Zion1.Membership.Infrastructure.Persistence;
 namespace Zion1.Membership.Infrastructure.Migrations
 {
     [DbContext(typeof(MembershipDBContext))]
-    partial class MembershipDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231005194237_Membership_Add_Group_Member")]
+    partial class Membership_Add_Group_Member
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,49 +117,37 @@ namespace Zion1.Membership.Infrastructure.Migrations
 
             modelBuilder.Entity("Zion1.Membership.Domain.Entities.MemberInGroup", b =>
                 {
-                    b.Property<int>("MemberId")
-                        .HasColumnType("int");
-
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
 
+                    b.Property<int>("MemberId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.HasKey("MemberId", "GroupId");
+                    b.HasKey("GroupId", "MemberId");
 
-                    b.HasIndex("GroupId");
+                    b.HasIndex("MemberId");
 
                     b.ToTable("MembersInGroups");
                 });
 
             modelBuilder.Entity("Zion1.Membership.Domain.Entities.MemberInGroup", b =>
                 {
-                    b.HasOne("Zion1.Membership.Domain.Entities.Group", "Group")
-                        .WithMany("MembersInGroups")
+                    b.HasOne("Zion1.Membership.Domain.Entities.Group", null)
+                        .WithMany()
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Zion1.Membership.Domain.Entities.Member", "Member")
-                        .WithMany("MembersInGroups")
+                    b.HasOne("Zion1.Membership.Domain.Entities.Member", null)
+                        .WithMany()
                         .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Group");
-
-                    b.Navigation("Member");
-                });
-
-            modelBuilder.Entity("Zion1.Membership.Domain.Entities.Group", b =>
-                {
-                    b.Navigation("MembersInGroups");
-                });
-
-            modelBuilder.Entity("Zion1.Membership.Domain.Entities.Member", b =>
-                {
-                    b.Navigation("MembersInGroups");
                 });
 #pragma warning restore 612, 618
         }

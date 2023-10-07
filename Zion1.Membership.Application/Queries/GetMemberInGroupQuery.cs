@@ -6,9 +6,16 @@ using Zion1.Membership.Application.Mapper;
 
 namespace Zion1.Membership.Application.Queries
 {
-    public class GetMemberListQuery : IRequest<IReadOnlyList<MemberDto>>
+    public class GetMemberInGroupQuery : IRequest<IReadOnlyList<MemberDto>>
     {
-        public class GetMemberListQueryHandler : IRequestHandler<GetMemberListQuery, IReadOnlyList<MemberDto>>
+        public int GroupId { get; set; }
+
+        public GetMemberInGroupQuery(int groupId)
+        {
+            GroupId = groupId;
+        }
+
+        public class GetMemberListQueryHandler : IRequestHandler<GetMemberInGroupQuery, IReadOnlyList<MemberDto>>
         {
             private readonly IMemberQueryRepository _memberRepository;
             public GetMemberListQueryHandler(IMemberQueryRepository memberRepository)
@@ -17,9 +24,9 @@ namespace Zion1.Membership.Application.Queries
             }
             
 
-            public async Task<IReadOnlyList<MemberDto>> Handle(GetMemberListQuery request, CancellationToken cancellationToken)
+            public async Task<IReadOnlyList<MemberDto>> Handle(GetMemberInGroupQuery request, CancellationToken cancellationToken)
             {
-                var memberList = await _memberRepository.GetAllAsync();
+                var memberList = await _memberRepository.GetMembersInGroup(request.GroupId);
                 return MembershipMapper.Mapper.Map<IReadOnlyList<MemberDto>>(memberList);
             }
             

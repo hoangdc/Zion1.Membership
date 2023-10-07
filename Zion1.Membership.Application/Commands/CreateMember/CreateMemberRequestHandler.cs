@@ -8,20 +8,20 @@ namespace Zion1.Membership.Application.Commands.CreateMember
     public class CreateMemberRequestHandler : IRequestHandler<CreateMemberRequest, int>
     {
         private readonly IMemberCommandRepository _memberCommandRepository;
-        public CreateMemberRequestHandler(IMemberCommandRepository clientRepository)
+        public CreateMemberRequestHandler(IMemberCommandRepository memberRepository)
         {
-            _memberCommandRepository = clientRepository;
+            _memberCommandRepository = memberRepository;
         }
 
         public async Task<int> Handle(CreateMemberRequest request, CancellationToken cancellationToken)
         {
-            var clientInfo = MembershipMapper.Mapper.Map<Member>(request);
-            if (clientInfo is null)
+            var member = MembershipMapper.Mapper.Map<Member>(request);
+            if (member is null)
             {
                 throw new ApplicationException("Issue with mapper");
             }
-            var newClientInfo = await _memberCommandRepository.AddAsync(clientInfo);
-            return newClientInfo.Id;
+            var newMember = await _memberCommandRepository.AddAsync(member);
+            return newMember.Id;
         }
     }
 }

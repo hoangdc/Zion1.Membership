@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Zion1.Membership.Application.Queries;
 using Zion1.Common.API.Controller;
+using Zion1.Membership.Application.Commands.AssignMemberToGroup;
 using Zion1.Membership.Application.Commands.CreateMember;
 using Zion1.Membership.Application.Commands.DeleteMember;
 using Zion1.Membership.Application.Commands.UpdateMember;
+using Zion1.Membership.Application.DTOs;
 using Zion1.Membership.Application.Queries;
 using Zion1.Membership.Domain.Entities;
 
@@ -14,19 +15,26 @@ namespace Zion1.Membership.API.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MembershipController : CoreController
+    public class MemberController : CoreController
     {
         [HttpGet]
-        public async Task<IReadOnlyList<Member>> GetMemberList()
+        public async Task<IReadOnlyList<MemberDto>> GetMemberList()
         {
             return await Mediator.Send(new GetMemberListQuery());
         }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<Member> GetMember(int id)
+        public async Task<MemberDto> GetMember(int id)
         {
             return await Mediator.Send(new GetMemberQuery(id));
+        }
+
+        [HttpGet]
+        [Route("group/{groupId}")]
+        public async Task<IReadOnlyList<MemberDto>> GetMemberListByGroup(int groupId)
+        {
+            return await Mediator.Send(new GetMemberInGroupQuery(groupId));
         }
 
         [HttpPost]
@@ -41,6 +49,13 @@ namespace Zion1.Membership.API.Controller
             }
             var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
             return BadRequest(errorMessages);
+        }
+
+        [HttpPost]
+        [Route("group/")]
+        public async Task<ActionResult<bool>> AssignMemberToGroup(AssignMemberToGroupRequest memberGroup)
+        {
+            return await Mediator.Send(memberGroup);
         }
 
         [HttpPut]

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Zion1.Membership.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using Zion1.Membership.Infrastructure.Persistence;
 namespace Zion1.Membership.Infrastructure.Migrations
 {
     [DbContext(typeof(MembershipDBContext))]
-    partial class MembershipDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231006222804_Membership_Change_Relationship")]
+    partial class Membership_Change_Relationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

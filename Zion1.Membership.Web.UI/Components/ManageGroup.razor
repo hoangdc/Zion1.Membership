@@ -1,0 +1,29 @@
+﻿@using Membership = Zion1.Membership.Web.UI.Models;
+
+<TelerikRootComponent>
+    <TelerikGrid Pageable=true
+                 PageSize="10"
+                 Sortable=true
+                 Data=groupList
+                 EditMode="@GridEditMode.Popup"
+                 OnCreate=@CreateGroup
+                 OnUpdate=@UpdateGroup
+                 OnDelete=@DeleteGroup>
+        <GridToolBarTemplate>
+            <GridCommandButton Command="Add" Icon="@SvgIcon.Plus">Add Group</GridCommandButton>
+        </GridToolBarTemplate>
+        <GridColumns>
+            <GridColumn Field=@nameof(Membership.Group.Id) Editable="false" />
+            <GridColumn Field=@nameof(Membership.Group.GroupName)></GridColumn>
+            <GridColumn Field=@nameof(Membership.Group.Description)></GridColumn>
+            <GridCommandColumn Width="200px">
+                <GridCommandButton Command="Edit" Icon="@SvgIcon.Pencil" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">Edit</GridCommandButton>
+                <GridCommandButton Command="Delete" Icon="@SvgIcon.Trash">Delete</GridCommandButton>
+            </GridCommandColumn>
+        </GridColumns>
+    </TelerikGrid>
+</TelerikRootComponent>
+
+<div>
+    @MessageResult
+</div>

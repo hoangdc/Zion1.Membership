@@ -1,4 +1,5 @@
-﻿using Zion1.Common.Infrastructure.Persistence.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using Zion1.Common.Infrastructure.Persistence.Repositories;
 using Zion1.Membership.Application.Contracts;
 using Zion1.Membership.Domain.Entities;
 
@@ -12,6 +13,14 @@ namespace Zion1.Membership.Infrastructure.Persistence.Repositories
             _membershipDbContext = membershipDbContext;
         }
 
-        
+        public async Task<IReadOnlyList<Member>> GetMembersInGroup(int groupId) 
+        {
+            var membersInGroup = _membershipDbContext.Groups
+                .Where(group => group.Id == groupId)
+                .SelectMany(group => group.MembersInGroups)
+                .Select(membersInGroup => membersInGroup.Member);
+            await Task.Delay(1);
+            return membersInGroup.ToList();
+        }
     }
 }

@@ -20,5 +20,7 @@ namespace Zion1.Membership.Domain.Entities
         public string Address { get; set; } = string.Empty;
         public string Others { get; set; } = string.Empty;
         public MemberStatus Status { get; set; } = MemberStatus.Active;
+
+        public List<MemberInGroup> MembersInGroups { get; } = new();
     }
 }

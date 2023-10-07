@@ -1,10 +1,8 @@
-﻿using MediatR;
-
-namespace Zion1.Membership.Application.Commands.UpdateMember
+﻿namespace Zion1.Membership.Application.DTOs
 {
-    public class UpdateMemberRequest : IRequest<int>
+    public class MemberDto
     {
-        public int Id { get; set; }
+        public int Id { get; set; } = 0;
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string MiddleName { get; set; } = string.Empty;

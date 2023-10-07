@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zion1.Membership.Infrastruc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zion1.Membership.Web.UI", "Zion1.Membership.Web.UI\Zion1.Membership.Web.UI.csproj", "{157BB401-01B6-4118-8931-186709AAAB05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zion1.Membership.Web", "Zion1.Membership.Web\Zion1.Membership.Web\Zion1.Membership.Web.csproj", "{C1B87435-C4C1-43F2-839B-DC90B7832EEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zion1.Membership.Web", "Zion1.Membership.Web\Zion1.Membership.Web\Zion1.Membership.Web.csproj", "{C1B87435-C4C1-43F2-839B-DC90B7832EEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zion1.Membership.Web.Client", "Zion1.Membership.Web\Zion1.Membership.Web.Client\Zion1.Membership.Web.Client.csproj", "{BBD91941-A7AD-4D09-A3E4-56761FAA614D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zion1.Membership.Web.Client", "Zion1.Membership.Web\Zion1.Membership.Web.Client\Zion1.Membership.Web.Client.csproj", "{BBD91941-A7AD-4D09-A3E4-56761FAA614D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,41 +1,42 @@
-﻿using Telerik.Blazor.Components;
+﻿using RestSharp;
+using Telerik.Blazor.Components;
 using Zion1.Common.API.Consumer;
 using Zion1.Membership.Web.UI.Models;
 
 namespace Zion1.Membership.Web.UI.Components
 {
-    public partial class ManageMember
+    public partial class ManageGroup
     {
-        public List<Member> memberList { get; set; } = new List<Member>();
+        public List<Group> groupList { get; set; } = new List<Group>();
         public string MessageResult { get; set; } = string.Empty;
 
         private ApiConsumer _apiConsumer = new ApiConsumer(ApiHelper.GetApiSettings());
 
-        public ManageMember()
+        public ManageGroup()
         {
 
         }
 
         protected override async Task OnInitializedAsync()
         {
-            await GetMemberList();
+            await GetGroupList();
         }
 
-        private async Task GetMemberList()
+        private async Task GetGroupList()
         {
-            var restResponse = await _apiConsumer.ExecuteAsync("GetMemberList");
-            memberList = restResponse.Convert<List<Member>>();
+            var restResponse = await _apiConsumer.ExecuteAsync("GetGroupList");
+            groupList = restResponse.Convert<List<Group>>();
         }
 
-        private async Task CreateMember(GridCommandEventArgs args)
+        private async Task CreateGroup(GridCommandEventArgs args)
         {
-            Member? memberInfo = args.Item as Member;
+            Group? groupInfo = args.Item as Group;
 
-            if (memberInfo != null)
+            if (groupInfo != null)
             {
 
-                _apiConsumer.Body = memberInfo;
-                var response = await _apiConsumer.ExecuteAsync("CreateMember");
+                _apiConsumer.Body = groupInfo;
+                var response = await _apiConsumer.ExecuteAsync("CreateGroup");
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -49,21 +50,21 @@ namespace Zion1.Membership.Web.UI.Components
             }
             else
             {
-                MessageResult = "Member info is null";
+                MessageResult = "Group info is null";
             }
 
             //Reload Data
-            await GetMemberList();
+            await GetGroupList();
         }
 
-        private async Task UpdateMember(GridCommandEventArgs args)
+        private async Task UpdateGroup(GridCommandEventArgs args)
         {
-            Member? memberInfo = args.Item as Member;
+            Group? groupInfo = args.Item as Group;
 
-            if (memberInfo != null)
+            if (groupInfo != null)
             {
-                _apiConsumer.Body = memberInfo;
-                var response = await _apiConsumer.ExecuteAsync("UpdateMember");
+                _apiConsumer.Body = groupInfo;
+                var response = await _apiConsumer.ExecuteAsync("UpdateGroup");
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -77,22 +78,24 @@ namespace Zion1.Membership.Web.UI.Components
             }
             else
             {
-                MessageResult = "Member info is null";
+                MessageResult = "Group info is null";
             }
 
             //Reload Data
-            await GetMemberList();
+            await GetGroupList();
         }
 
-        private async Task DeleteMember(GridCommandEventArgs args)
+        private async Task DeleteGroup(GridCommandEventArgs args)
         {
-            Member? memberInfo = args.Item as Member;
+            Group? groupInfo = args.Item as Group;
 
-            if (memberInfo != null)
+            if (groupInfo != null)
             {
 
-                _apiConsumer.Params.Add("id", memberInfo.Id.ToString());
-                var response = await _apiConsumer.ExecuteAsync("DeleteMember");
+                _apiConsumer.Params.Add("id", groupInfo.Id.ToString());
+                var response = await _apiConsumer.ExecuteAsync("DeleteGroup");
+
+                
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -106,11 +109,11 @@ namespace Zion1.Membership.Web.UI.Components
             }
             else
             {
-                MessageResult = "Member info is null";
+                MessageResult = "Group info is null";
             }
 
             //Reload Data
-            await GetMemberList();
+            await GetGroupList();
         }
     }
 }

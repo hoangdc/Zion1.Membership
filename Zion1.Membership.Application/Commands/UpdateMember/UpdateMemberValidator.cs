@@ -8,7 +8,6 @@ public class UpdateMemberValidator : AbstractValidator<UpdateMemberRequest>
 {
     public UpdateMemberValidator()
     {
-        RuleFor(x => x.Zion1).NotEmpty();
         RuleFor(x => x.FirstName).NotEmpty();
         RuleFor(x => x.LastName).NotEmpty();
         RuleFor(x => x.Address).NotEmpty();
