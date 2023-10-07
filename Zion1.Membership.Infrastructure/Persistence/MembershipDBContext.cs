@@ -15,10 +15,17 @@ namespace Zion1.Membership.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Group>()
-                .HasMany(e => e.Members)
-                .WithMany(e => e.Groups)
-                .UsingEntity<MemberInGroup>(mg => mg.Property(e => e.CreatedDate).HasDefaultValueSql("CURRENT_TIMESTAMP"));
+            modelBuilder.Entity<MemberInGroup>().HasKey(mg => new { mg.MemberId, mg.GroupId });
+
+            //modelBuilder.Entity<MemberInGroup>()
+            //    .HasOne<Member>(mg => mg.Member)
+            //    .WithMany(m => m.MembersInGroups)
+            //    .HasForeignKey(mg => mg.MemberId);
+
+            //modelBuilder.Entity<MemberInGroup>()
+            //    .HasOne<Group>(g => g.Group)
+            //    .WithMany(g => g.MembersInGroups)
+            //    .HasForeignKey(mg => mg.GroupId);
         }
     }
 

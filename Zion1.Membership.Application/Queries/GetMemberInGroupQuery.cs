@@ -1,10 +1,12 @@
 ﻿using MediatR;
 using Zion1.Membership.Domain.Entities;
 using Zion1.Membership.Application.Contracts;
+using Zion1.Membership.Application.DTOs;
+using Zion1.Membership.Application.Mapper;
 
 namespace Zion1.Membership.Application.Queries
 {
-    public class GetMemberInGroupQuery : IRequest<IReadOnlyList<Member>>
+    public class GetMemberInGroupQuery : IRequest<IReadOnlyList<MemberDto>>
     {
         public int GroupId { get; set; }
 
@@ -13,7 +15,7 @@ namespace Zion1.Membership.Application.Queries
             GroupId = groupId;
         }
 
-        public class GetMemberListQueryHandler : IRequestHandler<GetMemberInGroupQuery, IReadOnlyList<Member>>
+        public class GetMemberListQueryHandler : IRequestHandler<GetMemberInGroupQuery, IReadOnlyList<MemberDto>>
         {
             private readonly IMemberQueryRepository _memberRepository;
             public GetMemberListQueryHandler(IMemberQueryRepository memberRepository)
@@ -22,9 +24,10 @@ namespace Zion1.Membership.Application.Queries
             }
             
 
-            public Task<IReadOnlyList<Member>> Handle(GetMemberInGroupQuery request, CancellationToken cancellationToken)
+            public async Task<IReadOnlyList<MemberDto>> Handle(GetMemberInGroupQuery request, CancellationToken cancellationToken)
             {
-                return _memberRepository.GetMembersInGroup(request.GroupId);
+                var memberList = await _memberRepository.GetMembersInGroup(request.GroupId);
+                return MembershipMapper.Mapper.Map<IReadOnlyList<MemberDto>>(memberList);
             }
             
         }

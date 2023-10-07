@@ -15,10 +15,12 @@ namespace Zion1.Membership.Infrastructure.Persistence.Repositories
 
         public async Task<IReadOnlyList<Member>> GetMembersInGroup(int groupId) 
         {
-            var group = _membershipDbContext.Groups.Where(g => g.Id == groupId).FirstOrDefault();
-            var memberList = _membershipDbContext.Members.Where(m => m.Groups.Equals(group));
+            var membersInGroup = _membershipDbContext.Groups
+                .Where(group => group.Id == groupId)
+                .SelectMany(group => group.MembersInGroups)
+                .Select(membersInGroup => membersInGroup.Member);
             await Task.Delay(1);
-            return memberList.ToList();
+            return membersInGroup.ToList();
         }
     }
 }

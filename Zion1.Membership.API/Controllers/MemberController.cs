@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Zion1.Membership.Application.Queries;
 using Zion1.Common.API.Controller;
+using Zion1.Membership.Application.Commands.AssignMemberToGroup;
 using Zion1.Membership.Application.Commands.CreateMember;
 using Zion1.Membership.Application.Commands.DeleteMember;
 using Zion1.Membership.Application.Commands.UpdateMember;
+using Zion1.Membership.Application.DTOs;
 using Zion1.Membership.Application.Queries;
 using Zion1.Membership.Domain.Entities;
-using System.Threading.Tasks.Dataflow;
-using System.Text.RegularExpressions;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -19,21 +18,21 @@ namespace Zion1.Membership.API.Controller
     public class MemberController : CoreController
     {
         [HttpGet]
-        public async Task<IReadOnlyList<Member>> GetMemberList()
+        public async Task<IReadOnlyList<MemberDto>> GetMemberList()
         {
             return await Mediator.Send(new GetMemberListQuery());
         }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<Member> GetMember(int id)
+        public async Task<MemberDto> GetMember(int id)
         {
             return await Mediator.Send(new GetMemberQuery(id));
         }
 
         [HttpGet]
-        [Route("/group/{groupId}")]
-        public async Task<IReadOnlyList<Member>> GetMemberListByGroup(int groupId)
+        [Route("group/{groupId}")]
+        public async Task<IReadOnlyList<MemberDto>> GetMemberListByGroup(int groupId)
         {
             return await Mediator.Send(new GetMemberInGroupQuery(groupId));
         }
@@ -50,6 +49,13 @@ namespace Zion1.Membership.API.Controller
             }
             var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
             return BadRequest(errorMessages);
+        }
+
+        [HttpPost]
+        [Route("group/")]
+        public async Task<ActionResult<bool>> AssignMemberToGroup(AssignMemberToGroupRequest memberGroup)
+        {
+            return await Mediator.Send(memberGroup);
         }
 
         [HttpPut]
