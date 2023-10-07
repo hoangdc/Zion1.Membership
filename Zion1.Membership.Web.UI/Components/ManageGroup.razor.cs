@@ -1,4 +1,5 @@
-﻿using Telerik.Blazor.Components;
+﻿using RestSharp;
+using Telerik.Blazor.Components;
 using Zion1.Common.API.Consumer;
 using Zion1.Membership.Web.UI.Models;
 
@@ -91,8 +92,10 @@ namespace Zion1.Membership.Web.UI.Components
             if (groupInfo != null)
             {
 
-                _apiConsumer.Params.Add("Id", groupInfo.Id.ToString());
+                _apiConsumer.Params.Add("id", groupInfo.Id.ToString());
                 var response = await _apiConsumer.ExecuteAsync("DeleteGroup");
+
+                
 
                 if (!response.IsSuccessStatusCode)
                 {

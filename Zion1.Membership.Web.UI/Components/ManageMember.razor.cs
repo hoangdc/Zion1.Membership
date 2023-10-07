@@ -91,7 +91,7 @@ namespace Zion1.Membership.Web.UI.Components
             if (memberInfo != null)
             {
 
-                _apiConsumer.Params.Add("Id", memberInfo.Id.ToString());
+                _apiConsumer.Params.Add("id", memberInfo.Id.ToString());
                 var response = await _apiConsumer.ExecuteAsync("DeleteMember");
 
                 if (!response.IsSuccessStatusCode)
