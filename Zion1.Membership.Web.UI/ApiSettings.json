@@ -4,29 +4,62 @@
   "ApiResources": [
     {
       "Name": "GetMemberList",
-      "Resource": "api/membership",
+      "Resource": "api/member",
       "Method": "Get",
       "CacheTime": 10
     },
     {
       "Name": "GetMember",
-      "Resource": "api/membership/{id}",
+      "Resource": "api/member/{id}",
+      "Method": "Get",
+      "CacheTime": 10
+    },
+    {
+      "Name": "GetMemberListByGroup",
+      "Resource": "api/member/group/{groupid}",
       "Method": "Get",
       "CacheTime": 10
     },
     {
       "Name": "CreateMember",
-      "Resource": "api/membership",
+      "Resource": "api/member",
       "Method": "Post"
     },
     {
       "Name": "UpdateMember",
-      "Resource": "api/membership",
+      "Resource": "api/member",
       "Method": "Put"
     },
     {
       "Name": "DeleteMember",
-      "Resource": "api/membership/{id}",
+      "Resource": "api/member/{id}",
+      "Method": "Delete"
+    },
+    {
+      "Name": "GetGroupList",
+      "Resource": "api/group",
+      "Method": "Get",
+      "CacheTime": 10
+    },
+    {
+      "Name": "GetGroup",
+      "Resource": "api/group/{id}",
+      "Method": "Get",
+      "CacheTime": 10
+    },
+    {
+      "Name": "CreateGroup",
+      "Resource": "api/group",
+      "Method": "Post"
+    },
+    {
+      "Name": "UpdateGroup",
+      "Resource": "api/group",
+      "Method": "Put"
+    },
+    {
+      "Name": "DeleteGroup",
+      "Resource": "api/group/{id}",
       "Method": "Delete"
     }
   ]
