@@ -1,10 +1,10 @@
 ﻿@using Membership = Zion1.Membership.Web.UI.Models;
-
+<h3>Members</h3>
 <TelerikRootComponent>
     <TelerikGrid Pageable=true
                  PageSize="10"
                  Sortable=true
-                 Data=groupList
+                 Data=GroupList
                  EditMode="@GridEditMode.Popup"
                  OnCreate=@CreateGroup
                  OnUpdate=@UpdateGroup
@@ -13,17 +13,53 @@
             <GridCommandButton Command="Add" Icon="@SvgIcon.Plus">Add Group</GridCommandButton>
         </GridToolBarTemplate>
         <GridColumns>
-            <GridColumn Field=@nameof(Membership.Group.Id) Editable="false" />
+            <GridColumn Field=@nameof(Membership.Group.Id) Visible="false" />
             <GridColumn Field=@nameof(Membership.Group.GroupName)></GridColumn>
             <GridColumn Field=@nameof(Membership.Group.Description)></GridColumn>
-            <GridCommandColumn Width="200px">
+            <GridCommandColumn Width="200px" Title="Actions">
                 <GridCommandButton Command="Edit" Icon="@SvgIcon.Pencil" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">Edit</GridCommandButton>
                 <GridCommandButton Command="Delete" Icon="@SvgIcon.Trash">Delete</GridCommandButton>
+            </GridCommandColumn>
+            <GridCommandColumn Width="150px" Title="Assign Members">
+                <GridCommandButton Icon="@SvgIcon.User" ThemeColor="@ThemeConstants.Button.ThemeColor.Secondary">Members</GridCommandButton>
             </GridCommandColumn>
         </GridColumns>
     </TelerikGrid>
 </TelerikRootComponent>
-
 <div>
-    @MessageResult
+    <TelerikNotification @ref="NotificationResult"
+                         HorizontalPosition="@NotificationHorizontalPosition.Center"
+                         VerticalPosition="@NotificationVerticalPosition.Top">
+    </TelerikNotification>
 </div>
+
+@* <TelerikWindow Class="demo-window"
+               Width="400px"
+               Height="fit-content"
+               Centered="true"
+               Visible="true"
+               FooterLayoutAlign="@WindowFooterLayoutAlign.Start">
+    <WindowTitle>
+        <strong>Profile Data</strong>
+    </WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Minimize"></WindowAction>
+        <WindowAction Name="Maximize"></WindowAction>
+        <WindowAction Name="Close"></WindowAction>
+    </WindowActions>
+    <WindowContent>
+        <SelectMember></SelectMember>
+    </WindowContent>
+    <WindowFooter>
+        <TelerikButton OnClick="Submit"
+                       ThemeColor="@ThemeConstants.Button.ThemeColor.Primary"
+                       Enabled="@(!IsFormSubmitted)">
+            Submit
+        </TelerikButton>
+        <TelerikButton OnClick="Cancel"
+                       FillMode="@ThemeConstants.Button.FillMode.Flat"
+                       Enabled="@(!IsFormSubmitted)">
+            Cancel
+        </TelerikButton>
+    </WindowFooter>
+</TelerikWindow> *@

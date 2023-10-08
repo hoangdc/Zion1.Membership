@@ -1,4 +1,6 @@
-﻿<TelerikRootComponent>
+﻿<h3>Members</h3>
+
+<TelerikRootComponent>
     <TelerikGrid Pageable=true
                  PageSize="10"
                  Sortable=true
@@ -11,7 +13,7 @@
             <GridCommandButton Command="Add" Icon="@SvgIcon.Plus">Add Member</GridCommandButton>
         </GridToolBarTemplate>
         <GridColumns>
-            <GridColumn Field=@nameof(Member.Id) Editable="false" />
+            <GridColumn Field=@nameof(Member.Id) Visible="false" />
             <GridColumn Field=@nameof(Member.FirstName)></GridColumn>
             <GridColumn Field=@nameof(Member.LastName)></GridColumn>
             <GridColumn Field=@nameof(Member.Email)></GridColumn>
@@ -27,5 +29,8 @@
 </TelerikRootComponent>
 
 <div>
-    @MessageResult
+    <TelerikNotification @ref="NotificationResult"
+        HorizontalPosition="@NotificationHorizontalPosition.Center"
+        VerticalPosition="@NotificationVerticalPosition.Top">
+    </TelerikNotification>
 </div>

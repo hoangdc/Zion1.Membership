@@ -1,0 +1,17 @@
+﻿<TelerikRootComponent>
+    <TelerikGrid Pageable=true
+                 PageSize="10"
+                 Sortable=true
+                 Data=MemberList
+                 SelectionMode="GridSelectionMode.Multiple">
+        <GridColumns>
+            <GridColumn Field=@nameof(Member.Id) Visible=false />
+            <GridColumn Field=@nameof(Member.FirstName)></GridColumn>
+            <GridColumn Field=@nameof(Member.LastName)></GridColumn>
+            <GridColumn Field=@nameof(Member.Email)></GridColumn>
+            <GridColumn Field=@nameof(Member.PhoneNumber)></GridColumn>
+            <GridColumn Field=@nameof(Member.DateOfBirth)></GridColumn>
+            <GridColumn Field=@nameof(Member.Address)></GridColumn>
+        </GridColumns>
+    </TelerikGrid>
+</TelerikRootComponent>

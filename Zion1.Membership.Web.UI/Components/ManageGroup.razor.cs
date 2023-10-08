@@ -7,8 +7,9 @@ namespace Zion1.Membership.Web.UI.Components
 {
     public partial class ManageGroup
     {
-        public List<Group> groupList { get; set; } = new List<Group>();
+        public List<Group> GroupList { get; set; } = new List<Group>();
         public string MessageResult { get; set; } = string.Empty;
+        public TelerikNotification NotificationResult { get; set; } = new();
 
         private ApiConsumer _apiConsumer = new ApiConsumer(ApiHelper.GetApiSettings());
 
@@ -22,10 +23,26 @@ namespace Zion1.Membership.Web.UI.Components
             await GetGroupList();
         }
 
+        protected override Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (!firstRender && !string.IsNullOrEmpty(MessageResult.Trim()))
+            {
+                NotificationResult.HideAll();
+                NotificationResult.Show(new NotificationModel
+                {
+                    Text = MessageResult,
+                    ThemeColor = "success",
+                    CloseAfter = 3000
+                });
+            }
+
+            return base.OnAfterRenderAsync(firstRender);
+        }
+
         private async Task GetGroupList()
         {
             var restResponse = await _apiConsumer.ExecuteAsync("GetGroupList");
-            groupList = restResponse.Convert<List<Group>>();
+            GroupList = restResponse.Convert<List<Group>>();
         }
 
         private async Task CreateGroup(GridCommandEventArgs args)
