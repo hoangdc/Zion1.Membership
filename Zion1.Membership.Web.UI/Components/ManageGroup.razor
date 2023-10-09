@@ -21,45 +21,40 @@
                 <GridCommandButton Command="Delete" Icon="@SvgIcon.Trash">Delete</GridCommandButton>
             </GridCommandColumn>
             <GridCommandColumn Width="150px" Title="Assign Members">
-                <GridCommandButton Icon="@SvgIcon.User" ThemeColor="@ThemeConstants.Button.ThemeColor.Secondary">Members</GridCommandButton>
+                <GridCommandButton Icon="@SvgIcon.User" ThemeColor="@ThemeConstants.Button.ThemeColor.Secondary" OnClick="OpenAssignMember">Members</GridCommandButton>
             </GridCommandColumn>
         </GridColumns>
     </TelerikGrid>
-</TelerikRootComponent>
-<div>
-    <TelerikNotification @ref="NotificationResult"
-                         HorizontalPosition="@NotificationHorizontalPosition.Center"
-                         VerticalPosition="@NotificationVerticalPosition.Top">
-    </TelerikNotification>
-</div>
 
-@* <TelerikWindow Class="demo-window"
-               Width="400px"
-               Height="fit-content"
-               Centered="true"
-               Visible="true"
-               FooterLayoutAlign="@WindowFooterLayoutAlign.Start">
-    <WindowTitle>
-        <strong>Profile Data</strong>
-    </WindowTitle>
-    <WindowActions>
-        <WindowAction Name="Minimize"></WindowAction>
-        <WindowAction Name="Maximize"></WindowAction>
-        <WindowAction Name="Close"></WindowAction>
-    </WindowActions>
-    <WindowContent>
-        <SelectMember></SelectMember>
-    </WindowContent>
-    <WindowFooter>
-        <TelerikButton OnClick="Submit"
-                       ThemeColor="@ThemeConstants.Button.ThemeColor.Primary"
-                       Enabled="@(!IsFormSubmitted)">
-            Submit
-        </TelerikButton>
-        <TelerikButton OnClick="Cancel"
-                       FillMode="@ThemeConstants.Button.FillMode.Flat"
-                       Enabled="@(!IsFormSubmitted)">
-            Cancel
-        </TelerikButton>
-    </WindowFooter>
-</TelerikWindow> *@
+    <div>
+        <TelerikNotification @ref="NotificationResult"
+                             HorizontalPosition="@NotificationHorizontalPosition.Center"
+                             VerticalPosition="@NotificationVerticalPosition.Top">
+        </TelerikNotification>
+    </div>
+
+
+    <TelerikWindow Resizable="true"
+                   Draggable="true"
+                   Modal="true"
+                   Top="5%"
+                   Width="80%"
+                   Height="90%"
+    @bind-Visible="@IsOpenAssignMember">
+        <WindowTitle>
+            Assign Members
+        </WindowTitle>
+        <WindowContent>
+            <SelectMember @rendermode="@RenderMode.Server" SelectedGroup="@SelectedGroup"></SelectMember>
+        </WindowContent>
+        <WindowActions>
+            <WindowAction Name="Minimize"></WindowAction>
+            <WindowAction Name="Maximize"></WindowAction>
+            <WindowAction Name="Close"></WindowAction>
+        </WindowActions>
+        <WindowFooter>
+           
+        </WindowFooter>
+    </TelerikWindow>
+
+</TelerikRootComponent>

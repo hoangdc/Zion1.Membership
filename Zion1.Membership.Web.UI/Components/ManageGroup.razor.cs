@@ -132,5 +132,15 @@ namespace Zion1.Membership.Web.UI.Components
             //Reload Data
             await GetGroupList();
         }
+
+
+        private Group SelectedGroup { get; set; } = new();
+        private bool IsOpenAssignMember { get; set; } = false;
+        private void OpenAssignMember(GridCommandEventArgs args)
+        {
+            SelectedGroup = args.Item as Group ?? new();
+            IsOpenAssignMember = true;
+        }
+        
     }
 }

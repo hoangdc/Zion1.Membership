@@ -36,6 +36,11 @@
       "Method": "Delete"
     },
     {
+      "Name": "AssignMembersToGroup",
+      "Resource": "api/member/group",
+      "Method": "Post"
+    },
+    {
       "Name": "GetGroupList",
       "Resource": "api/group",
       "Method": "Get",

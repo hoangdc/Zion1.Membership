@@ -1,11 +1,15 @@
-﻿<TelerikRootComponent>
+﻿<h3>Selected Group: @SelectedGroup.GroupName</h3>
+
+<TelerikRootComponent>
     <TelerikGrid Pageable=true
                  PageSize="10"
                  Sortable=true
                  Data=MemberList
-                 SelectionMode="GridSelectionMode.Multiple">
+                 SelectionMode="GridSelectionMode.Multiple"
+                 @bind-SelectedItems="@SelectedMembers">
         <GridColumns>
-            <GridColumn Field=@nameof(Member.Id) Visible=false />
+            <GridCheckboxColumn SelectAll="true"></GridCheckboxColumn>
+            <GridColumn Field=@nameof(Member.Id)/>
             <GridColumn Field=@nameof(Member.FirstName)></GridColumn>
             <GridColumn Field=@nameof(Member.LastName)></GridColumn>
             <GridColumn Field=@nameof(Member.Email)></GridColumn>
@@ -14,4 +18,28 @@
             <GridColumn Field=@nameof(Member.Address)></GridColumn>
         </GridColumns>
     </TelerikGrid>
+
+    <div>
+        <TelerikButton OnClick="AssignMembersToGroup"
+            ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">
+            Submit
+        </TelerikButton>
+    </div>
+
+    <TelerikNotification @ref="NotificationResult"
+                         HorizontalPosition="@NotificationHorizontalPosition.Center"
+                         VerticalPosition="@NotificationVerticalPosition.Top">
+    </TelerikNotification>
+
 </TelerikRootComponent>
+
+<h3>Selected Items:</h3>
+<ul>
+    @foreach(var member in SelectedMembers)
+    {
+        <li>
+            @* @($"{member.Id}, {member.FirstName}, {member.LastName}") *@
+            @member.Id, @member.FirstName, @member.LastName
+        </li>
+    }
+</ul>
