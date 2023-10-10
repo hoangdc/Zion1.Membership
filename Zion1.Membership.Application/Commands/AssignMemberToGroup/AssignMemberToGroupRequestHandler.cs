@@ -5,7 +5,7 @@ using Zion1.Membership.Domain.Entities;
 
 namespace Zion1.Membership.Application.Commands.AssignMemberToGroup
 {
-    public class AssignMemberToGroupRequestHandler : IRequestHandler<AssignMemberToGroupRequest, bool>
+    public class AssignMemberToGroupRequestHandler : IRequestHandler<AssignMemberToGroupRequest, int>
     {
         private readonly IMemberCommandRepository _memberCommandRepository;
         public AssignMemberToGroupRequestHandler(IMemberCommandRepository memberInGroupRepository)
@@ -13,9 +13,9 @@ namespace Zion1.Membership.Application.Commands.AssignMemberToGroup
             _memberCommandRepository = memberInGroupRepository;
         }
 
-        public async Task<bool> Handle(AssignMemberToGroupRequest request, CancellationToken cancellationToken)
+        public async Task<int> Handle(AssignMemberToGroupRequest request, CancellationToken cancellationToken)
         {
-            return await _memberCommandRepository.AssignMemberToGroup(request.MemberId, request.GroupId);
+            return await _memberCommandRepository.AssignMembersToGroup(request.MemberIdList, request.GroupId);
         }
     }
 }

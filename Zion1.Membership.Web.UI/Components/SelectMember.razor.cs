@@ -22,7 +22,35 @@ namespace Zion1.Membership.Web.UI.Components
 
         protected override async Task OnInitializedAsync()
         {
-            await GetMemberList();
+            await GetAllMembers();
+            await GetMembersByGroup();
+        }
+
+        private async Task GetAllMembers()
+        {
+            var restResponse = await _apiConsumer.ExecuteAsync("GetMemberList");
+            MemberList = restResponse.Convert<List<Member>>();
+        }
+
+        private async Task GetMembersByGroup()
+        {
+            _apiConsumer.Params.Add("groupid", SelectedGroup.Id.ToString());
+            var restResponse = await _apiConsumer.ExecuteAsync("GetMemberListByGroup");
+            var membersInGroup = restResponse.Convert<List<Member>>();
+            foreach (var member in MemberList)
+            {
+                if (membersInGroup.FirstOrDefault(m => m.Id == member.Id) != null)
+                    SelectedMembers = SelectedMembers.Append(member);
+            }
+
+        }
+
+        private async Task AssignMembersToGroup()
+        {
+            var memberInGroup = new MembersInGroup() { GroupId = SelectedGroup.Id, MemberIdList = SelectedMembers.Select(m => m.Id).ToList() };
+            _apiConsumer.Body = memberInGroup;
+            var restResponse = await _apiConsumer.ExecuteAsync("AssignMembersToGroup");
+            MessageResult = "Success";
         }
 
         protected override Task OnAfterRenderAsync(bool firstRender)
@@ -40,24 +68,6 @@ namespace Zion1.Membership.Web.UI.Components
             }
 
             return base.OnAfterRenderAsync(firstRender);
-        }
-
-        private async Task GetMemberList()
-        {
-            var restResponse = await _apiConsumer.ExecuteAsync("GetMemberList");
-            MemberList = restResponse.Convert<List<Member>>();
-
-        }
-
-        private async Task AssignMembersToGroup()
-        {
-            foreach(var member in SelectedMembers)
-            {
-                var memberInGroup = new MemberInGroup() { GroupId = SelectedGroup.Id, MemberId = member.Id };
-                _apiConsumer.Body = memberInGroup;
-                var restResponse = await _apiConsumer.ExecuteAsync("AssignMemberToGroup");
-            }
-            MessageResult = "Success";
         }
     }
 }

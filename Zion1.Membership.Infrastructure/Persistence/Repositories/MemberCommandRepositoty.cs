@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using Microsoft.EntityFrameworkCore;
 using Zion1.Common.Infrastructure.Persistence.Repositories;
 using Zion1.Membership.Application.Contracts;
 using Zion1.Membership.Domain.Entities;
@@ -13,17 +14,21 @@ namespace Zion1.Membership.Infrastructure.Persistence.Repositories
             _membershipDbContext = membershipDbContext;
         }
 
-        public async Task<bool> AssignMemberToGroup(int memberId,int groupId)
+        public async Task<int> AssignMembersToGroup(List<int> memberIdList, int groupId)
         {
-            var member = _membershipDbContext.Members.FirstOrDefault(member => member.Id == memberId);
+            //Delete all MembersInGroups of this group
+            await _membershipDbContext.Database.ExecuteSqlAsync($"DELETE [MembersInGroups] WHERE GroupsId={groupId}");
+
+            //Insert all members to this group
+            var memberList = _membershipDbContext.Members.Where(m => memberIdList.Contains(m.Id));
             var group = _membershipDbContext.Groups.FirstOrDefault(group => group.Id == groupId);
-            if (member != null && group != null)
+
+            if (memberList != null && group != null)
             {
-                group.Members.Add(member);
-                await _membershipDbContext.SaveChangesAsync();
-                return true;
+                group.Members.AddRange(memberList);
+                return await _membershipDbContext.SaveChangesAsync();
             }
-            return false;
+            return 0;
         }
     }
 }

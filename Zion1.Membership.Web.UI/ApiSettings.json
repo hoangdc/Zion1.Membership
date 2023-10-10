@@ -36,7 +36,7 @@
       "Method": "Delete"
     },
     {
-      "Name": "AssignMemberToGroup",
+      "Name": "AssignMembersToGroup",
       "Resource": "api/member/group",
       "Method": "Post"
     },

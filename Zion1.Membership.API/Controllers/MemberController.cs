@@ -53,7 +53,7 @@ namespace Zion1.Membership.API.Controller
 
         [HttpPost]
         [Route("group/")]
-        public async Task<ActionResult<bool>> AssignMemberToGroup(AssignMemberToGroupRequest memberGroup)
+        public async Task<ActionResult<int>> AssignMemberToGroup(AssignMemberToGroupRequest memberGroup)
         {
             return await Mediator.Send(memberGroup);
         }

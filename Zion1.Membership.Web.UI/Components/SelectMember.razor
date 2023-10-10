@@ -1,4 +1,4 @@
-﻿<h3>Selected Group: @SelectedGroup.GroupName</h3>
+﻿<h5>Selected Group: @SelectedGroup.GroupName</h5>
 
 <TelerikRootComponent>
     <TelerikGrid Pageable=true
@@ -8,7 +8,7 @@
                  SelectionMode="GridSelectionMode.Multiple"
                  @bind-SelectedItems="@SelectedMembers">
         <GridColumns>
-            <GridCheckboxColumn SelectAll="true"></GridCheckboxColumn>
+            <GridCheckboxColumn SelectAll="true" CheckBoxOnlySelection="true"></GridCheckboxColumn>
             <GridColumn Field=@nameof(Member.Id)/>
             <GridColumn Field=@nameof(Member.FirstName)></GridColumn>
             <GridColumn Field=@nameof(Member.LastName)></GridColumn>
@@ -33,13 +33,4 @@
 
 </TelerikRootComponent>
 
-<h3>Selected Items:</h3>
-<ul>
-    @foreach(var member in SelectedMembers)
-    {
-        <li>
-            @* @($"{member.Id}, {member.FirstName}, {member.LastName}") *@
-            @member.Id, @member.FirstName, @member.LastName
-        </li>
-    }
-</ul>
+<h5>Selected Items: @string.Join("; ", SelectedMembers.Select(m => m.Id).ToList())</h5>

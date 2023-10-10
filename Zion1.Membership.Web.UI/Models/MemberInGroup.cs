@@ -1,9 +1,9 @@
 ﻿
 namespace Zion1.Membership.Web.UI.Models
 {
-    public class MemberInGroup
+    public class MembersInGroup
     {
-        public int MemberId { get; set; } = 0;
+        public List<int> MemberIdList { get; set; } = new();
         public int GroupId { get; set; } = 0;
     }
 }
