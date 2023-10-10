@@ -20,8 +20,6 @@ namespace Zion1.Membership.Application.Mapper
 
             CreateMap<Group, CreateGroupRequest>().ReverseMap();
             CreateMap<Group, UpdateGroupRequest>().ReverseMap();
-
-            CreateMap<MemberInGroup, AssignMemberToGroupRequest>().ReverseMap();
             
         }
     }

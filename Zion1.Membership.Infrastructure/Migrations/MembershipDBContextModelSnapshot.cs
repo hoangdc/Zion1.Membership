@@ -22,6 +22,21 @@ namespace Zion1.Membership.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("MembersInGroups", b =>
+                {
+                    b.Property<int>("GroupsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MembersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GroupsId", "MembersId");
+
+                    b.HasIndex("MembersId");
+
+                    b.ToTable("MembersInGroups");
+                });
+
             modelBuilder.Entity("Zion1.Membership.Domain.Entities.Group", b =>
                 {
                     b.Property<int>("Id")
@@ -112,51 +127,19 @@ namespace Zion1.Membership.Infrastructure.Migrations
                     b.ToTable("Members");
                 });
 
-            modelBuilder.Entity("Zion1.Membership.Domain.Entities.MemberInGroup", b =>
+            modelBuilder.Entity("MembersInGroups", b =>
                 {
-                    b.Property<int>("MemberId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GroupId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("MemberId", "GroupId");
-
-                    b.HasIndex("GroupId");
-
-                    b.ToTable("MembersInGroups");
-                });
-
-            modelBuilder.Entity("Zion1.Membership.Domain.Entities.MemberInGroup", b =>
-                {
-                    b.HasOne("Zion1.Membership.Domain.Entities.Group", "Group")
-                        .WithMany("MembersInGroups")
-                        .HasForeignKey("GroupId")
+                    b.HasOne("Zion1.Membership.Domain.Entities.Group", null)
+                        .WithMany()
+                        .HasForeignKey("GroupsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Zion1.Membership.Domain.Entities.Member", "Member")
-                        .WithMany("MembersInGroups")
-                        .HasForeignKey("MemberId")
+                    b.HasOne("Zion1.Membership.Domain.Entities.Member", null)
+                        .WithMany()
+                        .HasForeignKey("MembersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Group");
-
-                    b.Navigation("Member");
-                });
-
-            modelBuilder.Entity("Zion1.Membership.Domain.Entities.Group", b =>
-                {
-                    b.Navigation("MembersInGroups");
-                });
-
-            modelBuilder.Entity("Zion1.Membership.Domain.Entities.Member", b =>
-                {
-                    b.Navigation("MembersInGroups");
                 });
 #pragma warning restore 612, 618
         }

@@ -7,25 +7,15 @@ namespace Zion1.Membership.Application.Commands.AssignMemberToGroup
 {
     public class AssignMemberToGroupRequestHandler : IRequestHandler<AssignMemberToGroupRequest, bool>
     {
-        private readonly IMemberInGroupCommandRepository _memberInGroupCommandRepository;
-        public AssignMemberToGroupRequestHandler(IMemberInGroupCommandRepository memberInGroupRepository)
+        private readonly IMemberCommandRepository _memberCommandRepository;
+        public AssignMemberToGroupRequestHandler(IMemberCommandRepository memberInGroupRepository)
         {
-            _memberInGroupCommandRepository = memberInGroupRepository;
+            _memberCommandRepository = memberInGroupRepository;
         }
 
         public async Task<bool> Handle(AssignMemberToGroupRequest request, CancellationToken cancellationToken)
         {
-            var memberInGroup = MembershipMapper.Mapper.Map<MemberInGroup>(request);
-
-            //check GroupId and MemberId existed in Groups and Members
-
-            if (memberInGroup is null)
-            {
-                throw new ApplicationException("Issue with mapper");
-            }
-            await _memberInGroupCommandRepository.AddAsync(memberInGroup);
-
-            return true;
+            return await _memberCommandRepository.AssignMemberToGroup(request.MemberId, request.GroupId);
         }
     }
 }

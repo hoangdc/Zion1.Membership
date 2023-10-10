@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Zion1.Membership.Domain.Entities;
 
 namespace Zion1.Membership.Application.Commands.AssignMemberToGroup
 {

@@ -36,8 +36,6 @@ namespace Zion1.Membership.Infrastructure
             services.AddScoped<IGroupCommandRepository, GroupCommandRepository>();
             services.AddScoped<IGroupQueryRepository, GroupQueryRepositoty>();
 
-            services.AddScoped<IMemberInGroupCommandRepository, MemberInGroupCommandRepositoty>();
-
 
             return services;
         }

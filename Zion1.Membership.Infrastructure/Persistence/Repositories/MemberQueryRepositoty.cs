@@ -17,8 +17,7 @@ namespace Zion1.Membership.Infrastructure.Persistence.Repositories
         {
             var membersInGroup = _membershipDbContext.Groups
                 .Where(group => group.Id == groupId)
-                .SelectMany(group => group.MembersInGroups)
-                .Select(membersInGroup => membersInGroup.Member);
+                .SelectMany(group => group.Members);
             await Task.Delay(1);
             return membersInGroup.ToList();
         }

@@ -36,6 +36,7 @@ namespace Zion1.Membership.Web.UI.Components
                     ThemeColor = "success",
                     CloseAfter = 3000
                 });
+                MessageResult = string.Empty;
             }
 
             return base.OnAfterRenderAsync(firstRender);
@@ -54,7 +55,7 @@ namespace Zion1.Membership.Web.UI.Components
             {
                 var memberInGroup = new MemberInGroup() { GroupId = SelectedGroup.Id, MemberId = member.Id };
                 _apiConsumer.Body = memberInGroup;
-                var restResponse = await _apiConsumer.ExecuteAsync("AssignMembersToGroup");
+                var restResponse = await _apiConsumer.ExecuteAsync("AssignMemberToGroup");
             }
             MessageResult = "Success";
         }

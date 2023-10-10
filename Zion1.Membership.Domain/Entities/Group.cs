@@ -11,6 +11,6 @@ namespace Zion1.Membership.Domain.Entities
     {
         public string GroupName { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public List<MemberInGroup> MembersInGroups { get; } = new();
+        public List<Member> Members { get; } = new();
     }
 }
