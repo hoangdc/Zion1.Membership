@@ -6,44 +6,45 @@ namespace Zion1.Membership.Web.UI.Components
 {
     public partial class ManageMember
     {
-        public List<Member> memberList { get; set; } = new List<Member>();
+        public List<Member> MemberList { get; set; } = new List<Member>();
         public string MessageResult { get; set; } = string.Empty;
         public TelerikNotification NotificationResult { get; set; } = new();
 
         private ApiConsumer _apiConsumer = new ApiConsumer(ApiHelper.GetApiSettings());
 
-        
-
-        public ManageMember()
-        {
-
-        }
+        public List<Group> GroupList { get; set; } = new();
+        public int SelectedGroupId { get; set; } = 0;
 
         protected override async Task OnInitializedAsync()
         {
             await GetMemberList();
-        }
-
-        protected override Task OnAfterRenderAsync(bool firstRender)
-        {
-            if(!firstRender && !string.IsNullOrEmpty(MessageResult.Trim()))
-            {
-                NotificationResult.HideAll();
-                NotificationResult.Show(new NotificationModel
-                {
-                    Text = MessageResult,
-                    ThemeColor = "success",
-                    CloseAfter = 3000
-                });
-            }
-            
-            return base.OnAfterRenderAsync(firstRender);
+            await GetGroupList();
         }
 
         private async Task GetMemberList()
         {
-            var restResponse = await _apiConsumer.ExecuteAsync("GetMemberList");
-            memberList = restResponse.Convert<List<Member>>();
+            if (SelectedGroupId == 0)
+            {
+                var restResponse = await _apiConsumer.ExecuteAsync("GetMemberList");
+                MemberList = restResponse.Convert<List<Member>>();
+            }
+            else
+            {
+                _apiConsumer.Params.Add("groupid", SelectedGroupId.ToString());
+                var restResponse = await _apiConsumer.ExecuteAsync("GetMemberListByGroup");
+                MemberList = restResponse.Convert<List<Member>>();
+            }
+        }
+
+        private async Task Group_OnChange()
+        {
+            await GetMemberList();
+        }
+
+        private async Task GetGroupList()
+        {
+            var restResponse = await _apiConsumer.ExecuteAsync("GetGroupList");
+            GroupList = restResponse.Convert<List<Group>>();
         }
 
         private async Task CreateMember(GridCommandEventArgs args)
@@ -130,6 +131,22 @@ namespace Zion1.Membership.Web.UI.Components
 
             //Reload Data
             await GetMemberList();
+        }
+
+        protected override Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (!firstRender && !string.IsNullOrEmpty(MessageResult.Trim()))
+            {
+                NotificationResult.HideAll();
+                NotificationResult.Show(new NotificationModel
+                {
+                    Text = MessageResult,
+                    ThemeColor = "success",
+                    CloseAfter = 3000
+                });
+            }
+
+            return base.OnAfterRenderAsync(firstRender);
         }
     }
 }

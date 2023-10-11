@@ -1,11 +1,25 @@
-﻿<h3>Members</h3>
+﻿@using Membership = Zion1.Membership.Web.UI.Models;
+
+<h3>Members</h3>
+
+
 
 <TelerikRootComponent>
+    <TelerikDropDownList Data=GroupList
+                         TextField="@nameof(Membership.Group.GroupName)"
+                         ValueField="@nameof(Membership.Group.Id)"
+                         DefaultText="All"
+                         Width="10%"
+                         OnChange="Group_OnChange"
+    @bind-Value="@SelectedGroupId">
+    </TelerikDropDownList>
+
     <TelerikGrid Pageable=true
                  PageSize="10"
                  Sortable=true
-                 Data=memberList
+                 Data=MemberList
                  EditMode="@GridEditMode.Popup"
+                 FilterMode="@GridFilterMode.FilterRow"
                  OnCreate=@CreateMember
                  OnUpdate=@UpdateMember
                  OnDelete=@DeleteMember>
