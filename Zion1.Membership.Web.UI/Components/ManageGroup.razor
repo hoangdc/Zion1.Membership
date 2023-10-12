@@ -1,5 +1,4 @@
 ﻿@using Membership = Zion1.Membership.Web.UI.Models;
-<h3>Members</h3>
 <TelerikRootComponent>
     <TelerikGrid Pageable=true
                  PageSize="10"
@@ -46,7 +45,7 @@
             Assign Members
         </WindowTitle>
         <WindowContent>
-            <SelectMember @rendermode="@RenderMode.Server" SelectedGroup="@SelectedGroup"></SelectMember>
+            <SelectMember @rendermode="@RenderMode.InteractiveServer" SelectedGroup="@SelectedGroup"></SelectMember>
         </WindowContent>
         <WindowActions>
             <WindowAction Name="Minimize"></WindowAction>

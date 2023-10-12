@@ -1,0 +1,11 @@
+﻿@page "/membership"
+
+<FluentTabs>
+    <FluentTab Label="Members">
+        <ManageMember @rendermode="@RenderMode.InteractiveServer"></ManageMember>
+    </FluentTab>
+    <FluentTab Label="Groups">
+        <ManageGroup @rendermode="@RenderMode.InteractiveServer"></ManageGroup>
+    </FluentTab>
+</FluentTabs>
+
